@@ -1,47 +1,20 @@
 #include <Arduino.h>
+#include <MorseCode.h>
 
 int pin = 13;
-int dot = 100;
-int dash = 500;
 int letterBreak = 500;
-int wordBreak = 1000;
-
-void letterS();
-void letterO();
+int wordBreak = 5000;
 
 void setup() {
-  // put your setup code here, to run once:
   pinMode(pin, OUTPUT);
 }
 
 void loop() {
-  letterS();
+  blinkLetter('S', pin);
   delay(letterBreak);
-  letterO();
+  blinkLetter('O', pin);
   delay(letterBreak);
-  letterS();
+  blinkLetter('S', pin);
   delay(wordBreak);
-}
-
-void letterS() {
-  for(int i = 0; i < 3; i++) {
-    digitalWrite(pin, HIGH);
-    delay(dot);
-    digitalWrite(pin, LOW);
-    if(i != 2) {
-      delay(dot);
-    }
-  }
-}
-
-void letterO() {
-  for(int i = 0; i < 3; i++) {
-    digitalWrite(pin, HIGH);
-    delay(dash);
-    digitalWrite(pin, LOW);
-    if(i != 2) {
-      delay(dash);
-    }
-  }
 }
 
