@@ -3,7 +3,8 @@
 
 int pin = 13;
 int letterBreak = 500;
-int wordBreak = 5000;
+int wordBreak = 1000;
+int loopBreak = 5000;
 
 void setup() {
   pinMode(pin, OUTPUT);
@@ -15,6 +16,7 @@ void loop() {
   blinkLetter('O', pin);
   delay(letterBreak);
   blinkLetter('S', pin);
-  delay(wordBreak);
+
+  delay(loopBreak);
 }
 
