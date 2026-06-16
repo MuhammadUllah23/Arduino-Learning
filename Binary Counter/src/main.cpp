@@ -1,51 +1,49 @@
 #include <Arduino.h>
+struct BitPinEntry {
+    int bit;
+    int pin;
+};
 
-int pin4 = 13;
-int pin3 = 11;
-int pin2 = 9;
-int pin1 = 7;
+BitPinEntry bitsAndPins[] = {
+    {128, 13},
+    {64, 12},
+    {32, 11},
+    {16, 10},
+    {8, 9},
+    {4, 8},
+    {2, 7},
+    {1, 6}
+};
 
-int lightUp(int);
+void lightUp(int);
+int searchPin(int);
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(pin4, OUTPUT);
-  pinMode(pin3, OUTPUT);
-  pinMode(pin2, OUTPUT);
-  pinMode(pin1, OUTPUT);
+  for(BitPinEntry pin : bitsAndPins){
+    pinMode(pin.pin, OUTPUT);
+  }
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  for(int i = 0; i <= 15; i++) {
+  for(int i = 0; i <= 255; i++) {
     lightUp(i);
     delay(500);
-    digitalWrite(pin4, LOW);
-    digitalWrite(pin3, LOW);
-    digitalWrite(pin2, LOW);
-    digitalWrite(pin1, LOW);
+
+    for(BitPinEntry pin : bitsAndPins){
+      digitalWrite(pin.pin, LOW);
+    }
   }
 }
 
 // put function definitions here:
-int lightUp(int number) {
-  if(number - 8 >= 0){
-    digitalWrite(pin4, HIGH);
-    number = number - 8;
+void lightUp(int number) {
+  for(BitPinEntry bit : bitsAndPins) {
+    if(number - bit.bit >= 0){
+      digitalWrite(bit.pin, HIGH);
+      number = number - bit.bit;
+    }
   }
 
-  if(number - 4 >= 0){
-    digitalWrite(pin3, HIGH);
-    number = number - 4;
-  }
-
-  if(number - 2 >= 0){
-    digitalWrite(pin2, HIGH);
-    number = number - 2;
-  }
-
-  if(number - 1 >= 0){
-    digitalWrite(pin1, HIGH);
-    number = number - 1;
-  }
 }
